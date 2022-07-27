@@ -10,10 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_13_150818) do
+ActiveRecord::Schema.define(version: 2022_07_27_061955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "devices", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "name", default: "Add Device Name"
+    t.string "location"
+    t.time "morning_start"
+    t.time "morning_end"
+    t.boolean "temp", default: true, null: false
+    t.boolean "time", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_devices_on_user_id"
+  end
+
+  create_table "exhibits", force: :cascade do |t|
+    t.string "title", default: "Add New Title"
+    t.string "subtitle"
+    t.text "description"
+    t.text "explainer"
+    t.boolean "interactive", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "my_exhibits", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "exhibit_id"
+    t.bigint "device_id"
+    t.boolean "morning", default: false, null: false
+    t.boolean "selected", default: false, null: false
+    t.boolean "weather_display", default: false, null: false
+    t.boolean "time_display", default: false, null: false
+    t.boolean "temp_display", default: false, null: false
+    t.boolean "max_min_temp_display", default: false, null: false
+    t.boolean "weather_icon_display_display", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["device_id"], name: "index_my_exhibits_on_device_id"
+    t.index ["exhibit_id"], name: "index_my_exhibits_on_exhibit_id"
+    t.index ["user_id"], name: "index_my_exhibits_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -23,8 +64,14 @@ ActiveRecord::Schema.define(version: 2022_07_13_150818) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "work"
+    t.string "home"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "devices", "users"
+  add_foreign_key "my_exhibits", "devices"
+  add_foreign_key "my_exhibits", "exhibits"
+  add_foreign_key "my_exhibits", "users"
 end
