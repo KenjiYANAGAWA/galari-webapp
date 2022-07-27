@@ -8,7 +8,8 @@
 
 
 require "csv"
-puts __dir__
+
+Exhibit.destroy_all
 
 filepath = "app/assets/exhibits.csv"
 puts "reading CSV file"
