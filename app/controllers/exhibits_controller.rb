@@ -1,4 +1,4 @@
-class PagesController < ApplicationController
+class ExhibitsController < ApplicationController
     skip_before_action :authenticate_user!, only: [ :home ]
   
     def new
