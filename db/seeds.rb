@@ -8,8 +8,9 @@
 
 
 require "csv"
+puts __dir__
 
-filepath = "exhibits.csv"
+filepath = "app/assets/exhibits.csv"
 puts "reading CSV file"
 CSV.foreach(filepath, headers: :first_row) do |row|
     title = row['title']
@@ -23,9 +24,9 @@ CSV.foreach(filepath, headers: :first_row) do |row|
       title: title.gsub("_"," "),
       subtitle: subtitle,
       description: description,
-      explainer: explaiiner,
+      explainer: explainer,
       interactive: interactive
     )
-    place.photos.attach(io: img_file, filename: "exhibit_thumbnail_#{title}.jpeg")
+    exhibit.photos.attach(io: img_file, filename: "exhibit_thumbnail_#{title}.jpeg")
     puts "#{exhibit.title} created"
 end
