@@ -2,6 +2,12 @@
 <p>Find me in app/views/pages/home.html.erb</p>
 <ul>
   <% @exhibits.each do |exhibit| %>
-    <li><%= exhibit.title %></li>
+    <li>
+      <h2><%= exhibit.title %></h2>
+      <p><%= exhibit.subtitle %></p>
+      <p><%= exhibit.description %></p>
+      <p><%= exhibit.explainer %></p>
+      <p><%= exhibit.interactive %></p>
+    </li>
   <% end %>
 </ul>
