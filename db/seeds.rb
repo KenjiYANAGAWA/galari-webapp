@@ -31,3 +31,33 @@ CSV.foreach(filepath, headers: :first_row) do |row|
     exhibit.photos.attach(io: img_file, filename: "exhibit_thumbnail_#{title}.jpeg")
     puts "#{exhibit.title} created"
 end
+
+User.destroy_all
+
+User.create! (
+    email: "1@e.com",
+    password: "123123",
+    work: "Matsugasaki Hashikamicho, Sakyo Ward, Kyoto, 606-8585",
+    home: "541 Nijojocho, Nakagyo Ward, Kyoto, 604-8301"
+)
+
+User.create! (
+    email: "2@e.com",
+    password: "123123",
+    work: "",
+    home: ""
+)
+
+5.times do |i|
+    MyExhibit.create! (
+        User.find(1),
+        Exhibit.find(i)
+    )
+end
+
+5.times do |i|
+    MyExhibit.create! (
+        User.find(2),
+        Exhibit.find(i+10)
+    )
+end
