@@ -7,4 +7,5 @@ class User < ApplicationRecord
   has_many :devices, dependent: :destroy
   has_many :exhibits, through: :my_exhibits
   has_many :my_exhibits
+  has_many_attached :photos
 end
