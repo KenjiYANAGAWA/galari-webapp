@@ -50,10 +50,12 @@ User.create! (
 
 5.times do |i|
     MyExhibit.create! (
-        User.find(1),
+        User.first,
         Exhibit.find(i)
     )
 end
+
+User.first.my_exhibits.first.selected = true
 
 5.times do |i|
     MyExhibit.create! (
@@ -61,3 +63,5 @@ end
         Exhibit.find(i+10)
     )
 end
+
+User.second.my_exhibits.last.selected = true
